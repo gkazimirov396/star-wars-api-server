@@ -1,0 +1,246 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --primary-color: #ff6e42;
+  --primary-color-hover: #ff7e57;
+
+  --gray-dark: #333;
+  --gray-medium: #555;
+  --gray-light: #777;
+  --gray-lighter: #ccc;
+}
+
+body {
+  background-color: #f5f3ee;
+  font-family: 'Open Sans', sans-serif;
+  min-height: 100vh;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+dialog::backdrop {
+  display: none;
+}
+
+.modal {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  background-color: #fff;
+  padding: 1rem;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  width: min(80%, 300px);
+  z-index: 10;
+}
+
+.modal-content h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+}
+
+.modal-content p {
+  margin-bottom: 0.75rem;
+  color: var(--gray-medium);
+}
+
+.error-page {
+  text-align: center;
+  margin: 50px auto;
+  padding: 20px;
+  max-width: 600px;
+}
+
+.error-page h1 {
+  font-size: 3rem;
+  color: #ff6b6b;
+}
+
+.error-page p {
+  font-size: 1.2rem;
+  color: var(--gray-medium);
+}
+
+.error-home-link {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: var(--primary-color);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.error-home-link:hover {
+  background-color: var(--primary-color-hover);
+}
+
+.people {
+  display: flex;
+  flex-direction: column;
+  gap: 2.2rem;
+  align-items: center;
+  justify-content: center;
+  margin-inline: auto;
+  padding: 1.25rem;
+}
+
+.people > h1 {
+  background-image: url('/images/space.jpg');
+  background-position: top;
+  background-size: cover;
+  background-clip: text;
+  color: transparent;
+  font-size: 2.6rem;
+  font-weight: bold;
+}
+
+.person {
+  background-color: #fff;
+  padding: 20px;
+  width: min(80%, 770px);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 1.2rem;
+  margin-inline: auto;
+  text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.person:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.person img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+  display: block;
+  margin-inline: auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.person img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.person-name {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: var(--primary-color);
+}
+
+.person :where(p, h3:not(:only-child)) {
+  font-size: 1rem;
+  font-weight: normal;
+  color: var(--gray-medium);
+  margin-top: 5px;
+}
+
+.person-details {
+  columns: 2;
+  column-gap: 16rem;
+}
+
+.person .homeworld {
+  margin-top: 10px;
+  color: var(--gray-dark);
+}
+
+.person h3:has(+ .movies-list) {
+  font-size: 1.1rem;
+  color: var(--gray-dark);
+}
+
+.homeworld:is(:hover, :focus) {
+  cursor: pointer;
+  color: var(--gray-light);
+}
+
+.movies-list {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.movie {
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.7rem;
+  text-align: center;
+}
+
+.movie:is(:hover, :focus) {
+  cursor: pointer;
+  background-color: var(--primary-color-hover);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-top: 1rem;
+}
+
+.pagination button {
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  padding: 0.8rem 1.3rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination button:disabled {
+  color: #000;
+  background-color: var(--gray-lighter);
+  cursor: not-allowed;
+}
+
+.pagination button:not(:disabled):hover {
+  background-color: var(--primary-color-hover);
+}
+
+@media only screen and (max-width: 725px) {
+  .person-details {
+    column-gap: 3rem;
+  }
+
+  .people > h1 {
+    font-size: 1.7rem;
+  }
+
+  .modal {
+    inset: 0;
+    margin: auto;
+  }
+}

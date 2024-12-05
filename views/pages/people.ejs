@@ -1,0 +1,75 @@
+<%- include('../partials/modal-templates.ejs') %>
+
+<dialog id="info-modal" class="modal">
+  <div class="modal-content"></div>
+</dialog>
+
+<section class="people">
+  <h1>Star Wars People</h1>
+
+  <ul class="people-list">
+    <% people.forEach(person => { %>
+    <li class="person" data-homeworld="<%= JSON.stringify(person.homeworld) %>">
+      <img src="<%= person.animated_image %>" alt="Animated GIF Image" />
+      <h2 class="person-name"><%= person.name %></h2>
+
+      <div class="person-details">
+        <p>
+          <strong>Height:</strong>
+          <span class="person-height"><%= person.height %> cm</span>
+        </p>
+        <p>
+          <strong>Weight:</strong>
+          <span class="person-mass"><%= person.mass %> kg</span>
+        </p>
+        <p>
+          <strong>Gender:</strong>
+          <span class="person-gender"
+            ><%= person.gender[0].toUpperCase() + person.gender.slice(1)
+            %></span
+          >
+        </p>
+        <p>
+          <strong>Born In:</strong>
+          <span class="person-birth-year"><%= person.birth_year %></span>
+        </p>
+        <p>
+          <strong>Skin:</strong>
+          <span class="person-skin-color"><%= person.skin_color %></span>
+        </p>
+        <p>
+          <strong>Eyes:</strong>
+          <span class="person-eye-color"><%= person.eye_color %></span>
+        </p>
+      </div>
+
+      <attr title="Learn more">
+        <h3 class="homeworld"><%= person.homeworld.name %></h3>
+      </attr>
+
+      <h3>Appearances:</h3>
+      <ul class="movies-list">
+        <% person.movies.forEach(movie => { %>
+        <li class="movie" data-movie="<%= JSON.stringify(movie) %>">
+          <attr title="Learn more">
+            <h3><%= movie.title %></h3>
+          </attr>
+        </li>
+        <% }) %>
+      </ul>
+    </li>
+    <% }) %>
+  </ul>
+
+  <div class="pagination">
+    <% if (prevPage) { %>
+    <button>
+      <a href="/api/people?page=<%= prevPage.split('=')[1] %>">Previous</a>
+    </button>
+    <% } %> <% if (nextPage) { %>
+    <button>
+      <a href="/api/people?page=<%= nextPage.split('=')[1] %>">Next</a>
+    </button>
+    <% } %>
+  </div>
+</section>
