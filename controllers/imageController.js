@@ -3,11 +3,15 @@ import fetch from 'node-fetch';
 const getImageHandler = async (req, res, next) => {
   const { title } = req.params;
 
+  const giphyParams = new URLSearchParams();
+
+  giphyParams.append('api_key', process.env.GIPHY_API_KEY);
+  giphyParams.append('q', encodeURIComponent(title));
+  giphyParams.append('limit', '1');
+
   try {
     const giphyResponse = await fetch(
-      `https://api.giphy.com/v1/gifs/search?api_key=${
-        process.env.GIPHY_API_KEY
-      }&q=${encodeURIComponent(title)}&limit=1`
+      `https://api.giphy.com/v1/gifs/search?${giphyParams.toString()}`
     );
     const gifData = await giphyResponse.json();
 
