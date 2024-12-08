@@ -43,17 +43,15 @@
         </p>
       </div>
 
-      <attr title="Learn more">
+      <div title="Learn more">
         <h3 class="homeworld"><%= person.homeworld.name %></h3>
-      </attr>
+      </div>
 
       <h3>Appearances:</h3>
       <ul class="movies-list">
         <% person.movies.forEach(movie => { %>
         <li class="movie" data-movie="<%= JSON.stringify(movie) %>">
-          <attr title="Learn more">
-            <h3><%= movie.title %></h3>
-          </attr>
+          <h3 title="Learn more"><%= movie.title %></h3>
         </li>
         <% }) %>
       </ul>
