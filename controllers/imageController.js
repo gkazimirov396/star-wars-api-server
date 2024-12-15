@@ -1,5 +1,3 @@
-import fetch from 'node-fetch';
-
 const getImageHandler = async (req, res, next) => {
   const { title } = req.params;
 

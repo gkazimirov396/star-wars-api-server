@@ -1,17 +1,6 @@
-import fetch from 'node-fetch';
+import { fetchMovies } from '../utils/fetchMovies.js';
 
 const PORT = process.env.PORT ?? 5000;
-
-const fetchMovies = async (...urls) => {
-  try {
-    const promises = urls.map(url => fetch(url));
-    const results = await Promise.all(promises);
-
-    return Promise.all(results.map(res => res.json()));
-  } catch (error) {
-    console.error('Failed to fetch movies: ', error);
-  }
-};
 
 const getMainPage = async (req, res, next) => {
   const page = req.query.page || 1;
