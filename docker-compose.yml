@@ -4,18 +4,20 @@ services:
   node:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: DockerFile
     ports:
       - '5000:5000'
     env_file:
       - .env
+    volumes:
+      - .:/usr/src/app
     networks:
       - app-network
 
   nginx:
     build:
       context: .
-      dockerfile: Dockerfile.nginx
+      dockerfile: DockerFile.nginx
     ports:
       - '80:80'
     depends_on:
