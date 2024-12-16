@@ -1,25 +1,38 @@
 import { fetchMovies } from '../utils/fetchMovies.js';
 
-const PORT = process.env.PORT ?? 5000;
+const fetchPeople = async people => {
+  try {
+    const promises = people.map(person => fetch(person.url));
+    const results = await Promise.all(promises);
+
+    const peopleResult = await Promise.all(results.map(res => res.json()));
+
+    return peopleResult.map(p => p.result.properties);
+  } catch (error) {
+    console.error('Failed to fetch people: ', error);
+  }
+};
 
 const getMainPage = async (req, res, next) => {
   const page = req.query.page || 1;
 
   try {
-    const response = await fetch(`https://swapi.dev/api/people/?page=${page}`);
+    const response = await fetch(`https://swapi.tech/api/people/?page=${page}`);
     const peopleData = await response.json();
 
+    const people = await fetchPeople(peopleData.results);
+
     const peopleWithImages = await Promise.all(
-      peopleData.results.map(async person => {
+      people.map(async person => {
         const giphyResponse = await fetch(
-          `http://localhost:${PORT}/image/${encodeURIComponent(person.name)}`
+          `${req.protocol}://${req.get('host')}/image/${person.name}`
         );
         const homeworldResponse = await fetch(person.homeworld);
 
         const gifData = await giphyResponse.json();
         const homeworld = await homeworldResponse.json();
 
-        const movies = await fetchMovies(...person.films);
+        const movies = await fetchMovies(...(person.films ?? []));
 
         return {
           ...person,
